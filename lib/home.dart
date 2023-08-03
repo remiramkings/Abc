@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:local_notification_project/notification_service.dart.dart';
+import 'package:local_notification_project/second_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,16 +20,33 @@ class _HomeState extends State<Home> {
     "abc-89796",
     "abc-44566",
   ];
+  
+  @override
+  void initState() {
+    NotificationService().init(
+      (NotificationResponse details){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return SecondScreen(payLoad: details.payload ?? "");
+          })
+        );
+      }
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Row(
+        actions: [
+          Row(
           children: [
             InkWell(
               child: const Icon(Icons.notifications),
-              onTap: () {
-                NotificationService.getInstance().showNotification();
+              onTap: () async {
+                await NotificationService.getInstance().showNotificationWithPayLoad();
               },
             ),
             SizedBox(width: 10),
@@ -69,7 +88,8 @@ class _HomeState extends State<Home> {
               },
             ),
           ],
-        ),
+        )
+        ],
       ),
     );
   }
