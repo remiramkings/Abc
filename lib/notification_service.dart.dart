@@ -56,6 +56,8 @@ class NotificationService {
             channelDescription: 'your channel description',
             importance: Importance.max,
             priority: Priority.high,
+            sound: RawResourceAndroidNotificationSound('wave'),
+            playSound: true,
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
