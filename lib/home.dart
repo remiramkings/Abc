@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:local_notification_project/client.dart';
+import 'package:local_notification_project/enquiry.dart';
+import 'package:local_notification_project/notification_actions.dart';
 import 'package:local_notification_project/notification_service.dart.dart';
+import 'package:local_notification_project/order.dart';
 import 'package:local_notification_project/second_screen.dart';
 
 class Home extends StatefulWidget {
@@ -25,11 +29,21 @@ class _HomeState extends State<Home> {
   void initState() {
     NotificationService().init(
       (NotificationResponse details){
+        String? payload = details.payload;
+        if(payload == null){
+          return;
+        }
+        Widget widget = SecondScreen(payLoad: details.payload ?? "");
+        if( payload == NotificationAction.client.name){
+          widget = Client(payLoad: details.payload ?? "");
+        } else if( payload == NotificationAction.enquiry.name){
+          widget = Enquiry(payLoad: details.payload ?? "");
+        } else if( payload == NotificationAction.order.name){
+          widget = Order(payLoad: details.payload ?? "");
+        }
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) {
-            return SecondScreen(payLoad: details.payload ?? "");
-          })
+          MaterialPageRoute(builder: (context) => widget)
         );
       }
     );
@@ -46,7 +60,12 @@ class _HomeState extends State<Home> {
             InkWell(
               child: const Icon(Icons.notifications),
               onTap: () async {
-                await NotificationService.getInstance().showNotificationWithPayLoad();
+                await NotificationService.getInstance().showNotificationWithPayLoad(
+                  "New token is assigned",
+                  "Tap to accept",
+                  NotificationAction.tokenReceived.name,
+                  NotificationAction.tokenReceived.index
+                );
               },
             ),
             SizedBox(width: 10),
@@ -77,7 +96,6 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                         actions: <Widget>[
-                         
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'Exit'),
                             child: const Text('Exit'),
@@ -90,6 +108,39 @@ class _HomeState extends State<Home> {
           ],
         )
         ],
+      ),
+      body: Center(
+        child: Column(
+          
+          children: [
+          SizedBox(height:10),
+          ElevatedButton(onPressed: ()async{
+            await NotificationService.getInstance().showNotificationWithPayLoad(
+              "This is a Client notification",
+              "Tap to see Client",
+              NotificationAction.client.name,
+              NotificationAction.client.index
+            );
+          }, child: Text('Client')),
+          SizedBox(height:10),
+          ElevatedButton(onPressed: ()async{
+            await NotificationService.getInstance().showNotificationWithPayLoad(
+              "This is an Enquiry notification",
+              "Tap to see Enquiry",
+              NotificationAction.enquiry.name,
+              NotificationAction.enquiry.index
+            );
+          }, child: Text('Enquiry')),
+          SizedBox(height:10),
+          ElevatedButton(onPressed: ()async{
+            await NotificationService.getInstance().showNotificationWithPayLoad(
+              "This is an Order notification",
+              "Tap to see Order",
+              NotificationAction.order.name,
+              NotificationAction.order.index
+            );
+          }, child: Text('Order'))
+        ]),
       ),
     );
   }

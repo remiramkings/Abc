@@ -1,7 +1,12 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:local_notification_project/notification_actions.dart';
 
 class NotificationService {
   static final NotificationService _instance = NotificationService();
+
+  static const String channelId = "MY_CHANNEL_ID";
+  static const String channelName = "My Channel";
+  static const String channelDesc = "This is my channel description";
 
   static NotificationService getInstance() {
     return _instance;
@@ -34,8 +39,8 @@ class NotificationService {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
+        AndroidNotificationDetails(channelId, channelName,
+            channelDescription: channelDesc,
             importance: Importance.max,
             priority: Priority.high,
             ticker: 'ticker');
@@ -48,12 +53,14 @@ class NotificationService {
       notificationDetails,
     );
   }
-  Future<void> showNotificationWithPayLoad() async {
+
+  Future<void> showNotificationWithPayLoad(
+      String message, String action, String payload, int actionId) async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
     const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
+        AndroidNotificationDetails(channelId, channelName,
+            channelDescription: channelDesc,
             importance: Importance.max,
             priority: Priority.high,
             sound: RawResourceAndroidNotificationSound('wave'),
@@ -61,8 +68,7 @@ class NotificationService {
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
-    await flutterLocalNotificationsPlugin.show(
-        1, 'New token is assigned', 'Tap to accept', notificationDetails,
-        payload: 'payLoad');
+    await flutterLocalNotificationsPlugin
+        .show(actionId, message, action, notificationDetails, payload: payload);
   }
 }
