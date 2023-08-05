@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_notification_project/call_log.dart';
 
 import 'home.dart';
 import 'notification_service.dart.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: const CallLog(),
     );
   }
 }
