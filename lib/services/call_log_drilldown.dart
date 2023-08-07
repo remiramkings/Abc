@@ -14,6 +14,9 @@ class CallLogDrillDown extends StatefulWidget {
 }
 
 class _CallLogDrillDownState extends State<CallLogDrillDown> {
+
+  bool canPlayAudio = false;
+
   @override
   Widget build(BuildContext context) {
     const audioUrl =  "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3";// widget.callData.recordingUrl;
@@ -21,19 +24,21 @@ class _CallLogDrillDownState extends State<CallLogDrillDown> {
       decoration: BoxDecoration(
         color: Colors.grey[200]
       ),
+      alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          widget.callData.recordingUrl.isEmpty ? const Icon(Icons.stop_circle)
-          : CustomAudioPlayer(audioUrl: audioUrl),
-          Text(widget.callData.callStatus),
-          const SizedBox(height: 10),
-          widget.callData.callTypeId == 1 ? 
-          const Text('Incoming', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold) ) : 
-          const Text('Outgoing', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold))
-        ],
-      ),
+      child: widget.callData.recordingUrl.isEmpty ? const Icon(Icons.warning)
+      : canPlayAudio ? CustomAudioPlayer(audioUrl: audioUrl)
+        : InkWell(
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(Icons.play_arrow_outlined, size: 45,),
+          ),
+          onTap: () {
+            setState(() {
+              canPlayAudio = true;
+            });
+          },
+        ),
     );
   }
 }

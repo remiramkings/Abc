@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:local_notification_project/call_log_item.dart';
 import 'package:local_notification_project/model/call_data.dart';
 import 'package:local_notification_project/model/call_log_request_model.dart';
+import 'package:local_notification_project/search_popup.dart';
 import 'package:local_notification_project/services/call_service.dart';
 
 class CallLog extends StatefulWidget {
@@ -43,6 +44,15 @@ class _CallLogState extends State<CallLog> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Call logs'),
+        actions:  [Padding(
+          padding: EdgeInsets.all(8.0),
+          child: InkWell(child: Icon(Icons.search),
+          onTap: () {
+            // showDialog(context: context, builder: (context) {
+            // //  return SearchPopUp();
+            // },);
+          },),
+        )],
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.grey[200]),

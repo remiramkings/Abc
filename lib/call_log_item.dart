@@ -62,7 +62,13 @@ class _CallLogItemState extends State<CallLogItem> {
                   ),
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text(widget.callData.callStatus, style: TextStyle(fontSize: 12)),
+          
+          widget.callData.callTypeId == 1 ? 
+          const Text('Incoming', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold) ) : 
+          const Text('Outgoing', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                     InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
