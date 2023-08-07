@@ -38,22 +38,26 @@ class _CallLogItemState extends State<CallLogItem> {
                   padding: const EdgeInsets.all(5.0),
                   child: Column(
                     children: [
-                      Text('${dateTime.year}', style: TextStyle(fontWeight: FontWeight.bold, ),),
+                      Text('${dateTime.year}', style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(179, 255, 193, 59)),),
                       
-                      Text('${dateTime.day}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25 )),
+                      Text(DateFormat("dd").format(dateTime), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27, color: Color.fromARGB(205, 22, 48, 167) )),
                       
-                      Text(DateFormat.MMM().format(dateTime), style: TextStyle(fontWeight: FontWeight.bold, ),)
+                      Text(DateFormat.MMM().format(dateTime).toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 179, 37, 56)),)
                     ],
                   ),
                 ),
-                SizedBox(width: 8,),
+                const SizedBox(width: 8,),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.callData.fullName),
-                      SizedBox(height: 5,),
-                      Text(widget.callData.callNumber)
+                      Text(widget.callData.fullName,
+                      style: const TextStyle(fontWeight: FontWeight.bold),),
+                      const SizedBox(height: 5,),
+                      Text(widget.callData.callNumber,
+                      style: const TextStyle(color: Color.fromARGB(255, 179, 37, 56),
+                      fontSize: 13
+                      ),)
                     ],
                   ),
                 ),
@@ -63,8 +67,9 @@ class _CallLogItemState extends State<CallLogItem> {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Icon(
-                          isActiveDrillDown ? Icons.keyboard_arrow_up_outlined
-                          : Icons.keyboard_arrow_down_outlined
+                          (isActiveDrillDown ? Icons.keyboard_arrow_up_outlined
+                          : Icons.keyboard_arrow_down_outlined)
+                          ,color: Color.fromARGB(205, 22, 48, 167)
                         ),
                       ),
                       onTap: () {

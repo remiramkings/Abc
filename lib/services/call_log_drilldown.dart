@@ -16,6 +16,7 @@ class CallLogDrillDown extends StatefulWidget {
 class _CallLogDrillDownState extends State<CallLogDrillDown> {
   @override
   Widget build(BuildContext context) {
+    const audioUrl =  "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3";// widget.callData.recordingUrl;
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200]
@@ -25,10 +26,12 @@ class _CallLogDrillDownState extends State<CallLogDrillDown> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           widget.callData.recordingUrl.isEmpty ? const Icon(Icons.stop_circle)
-          : CustomAudioPlayer(audioUrl: widget.callData.recordingUrl),
+          : CustomAudioPlayer(audioUrl: audioUrl),
           Text(widget.callData.callStatus),
-          SizedBox(height: 10),
-          widget.callData.callTypeId == 1 ? Text('Incoming') : Text('Outgoing')
+          const SizedBox(height: 10),
+          widget.callData.callTypeId == 1 ? 
+          const Text('Incoming', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold) ) : 
+          const Text('Outgoing', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold))
         ],
       ),
     );
