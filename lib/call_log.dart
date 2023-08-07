@@ -45,12 +45,14 @@ class _CallLogState extends State<CallLog> {
       appBar: AppBar(
         title: const Text('Call logs'),
         actions:  [Padding(
-          padding: EdgeInsets.all(8.0),
-          child: InkWell(child: Icon(Icons.search),
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(child: const Icon(Icons.search),
           onTap: () {
-            // showDialog(context: context, builder: (context) {
-            // //  return SearchPopUp();
-            // },);
+            showDialog(
+              context: context,
+              builder: (context) {
+              return SearchPopUp();
+            },);
           },),
         )],
       ),
