@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:local_notification_project/call_log_item.dart';
 import 'package:local_notification_project/model/call_data.dart';
