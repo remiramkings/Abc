@@ -13,7 +13,7 @@ class CallService extends BaseService{
   }
 
   Future<List<CallData>> getCallDetails(CallLogRequest request) async {
-    Uri uri = getApiUri('api/get_Calllog_report_data/0/1165');
+    Uri uri = getApiUri('fibrcrm.com', 'api/get_Calllog_report_data/0/1165', isSecure: true);
     var headers = {'Content-Type': 'application/json'};
 
     Response response = await client.put(uri, headers: headers, body: jsonEncode(request.toRequest()));

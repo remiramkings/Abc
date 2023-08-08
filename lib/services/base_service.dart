@@ -19,8 +19,10 @@ class BaseService {
     return response.statusCode >= 200 && response.statusCode < 300;
   }
 
-  Uri getApiUri(String endpoint, {Map<String, dynamic>? queryParams}) {
-    return Uri.https("fibrcrm.com","/$endpoint", queryParams);
+  Uri getApiUri(String host, String endpoint, {Map<String, dynamic>? queryParams, bool? isSecure = false }) {
+    return isSecure!
+      ? Uri.https(host,"/$endpoint", queryParams)
+      : Uri.http(host,"/$endpoint", queryParams);
   }
 
 }
