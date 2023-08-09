@@ -9,6 +9,8 @@ class SearchPopUp extends StatefulWidget {
 }
 
 class _SearchPopUpState extends State<SearchPopUp> {
+  DateTime fromDate = DateTime.now();
+  DateTime toDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -24,12 +26,24 @@ class _SearchPopUpState extends State<SearchPopUp> {
                 Expanded(
                   child: CustomDatePicker(
                     label: 'From date',
+                    selected: fromDate,
+                    firstDate: DateTime(1950),
+                    onSelected: (date) {
+                      setState(() {
+                        fromDate = date;
+                      });
+                    },
                   )
                 ),
                 const SizedBox(width: 25),
                 Expanded(
                   child: CustomDatePicker(
                     label: 'To date',
+                    selected: toDate,
+                    firstDate: DateTime(1950),
+                    onSelected: (date) {
+                      toDate = date;
+                    },
                   )
                 )
               ],

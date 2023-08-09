@@ -1,10 +1,15 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:local_notification_project/model/from_date_status.dart';
 import 'package:local_notification_project/model/leave_data.dart';
+import 'package:local_notification_project/model/leave_details_response.dart';
 import 'package:local_notification_project/model/leave_grid_summary.dart';
 import 'package:local_notification_project/model/leave_request_model.dart';
+import 'package:local_notification_project/model/leave_request_status.dart';
+import 'package:local_notification_project/model/leave_request_type.dart';
 import 'package:local_notification_project/model/leave_response_model.dart';
+import 'package:local_notification_project/model/to_date_status.dart';
 import 'package:local_notification_project/services/base_service.dart';
 
 class LeaveService extends BaseService{
@@ -42,5 +47,52 @@ class LeaveService extends BaseService{
       summary: summary
     );
   }
-  
+
+  Future<LeaveDetailsResponse?> getLeaveDetails() async {
+    Uri uri = getApiUri('crm.todomor.com', 'api/GetLeaveDDs/6');
+    var headers = {'Content-Type': 'application/json'};
+
+    Response response = await client.get(uri, headers: headers);
+    if(!isSuccess(response)){
+      return null;
+    }
+
+    Map<String, dynamic> responseMap = getMap(response);
+
+    List<LeaveRequestType> leaveRequestTypes = [];
+    List<FromDateStatus> fromDateStatuses = [];
+    List<ToDateStatus> toDateStatuses = [];
+    List<LeaveRequestStatus> leaveRequestStatuses = [];
+
+    if(responseMap.containsKey('Leave_request_type')){
+      leaveRequestTypes = (responseMap['Leave_request_type'] as List<dynamic>)
+      .map((e) => LeaveRequestType.fromMap( e as Map<String, dynamic>))
+      .toList();
+    }
+
+    if(responseMap.containsKey('from_date_status')){
+      fromDateStatuses = (responseMap['from_date_status'] as List<dynamic>)
+      .map((e) => FromDateStatus.fromMap( e as Map<String, dynamic>))
+      .toList();
+    }
+
+    if(responseMap.containsKey('to_date_status')){
+      toDateStatuses = (responseMap['to_date_status'] as List<dynamic>)
+      .map((e) => ToDateStatus.fromMap( e as Map<String, dynamic>))
+      .toList();
+    }
+
+    if(responseMap.containsKey('leave_request_status')){
+      leaveRequestStatuses = (responseMap['leave_request_status'] as List<dynamic>)
+      .map((e) => LeaveRequestStatus.fromMap( e as Map<String, dynamic>))
+      .toList();
+    }
+
+    return LeaveDetailsResponse(
+      leaveRequestTypes: leaveRequestTypes,
+      fromDateStatuses: fromDateStatuses,
+      toDateStatuses: toDateStatuses,
+      leaveRequestStatuses: leaveRequestStatuses
+    );
+  }  
 }
