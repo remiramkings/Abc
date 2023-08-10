@@ -81,6 +81,7 @@ class _AddLeaveState extends State<AddLeave> {
                             UserModel(id: 1, name: 'Sajith'),
                             UserModel(id: 2, name: 'Jack Sparrow')
                           ],
+                          optionLabel: "Users",
                           selected: selectedUser,
                           onSelected: (option) {
                             setState(() {
@@ -94,6 +95,7 @@ class _AddLeaveState extends State<AddLeave> {
                         child: CustomDropDown<LeaveRequestType>(
                           title: 'Type',
                           options: details == null ? [] : details.leaveRequestTypes,
+                          optionLabel: "Types",
                           selected: selectedLeaveRequestType,
                           onSelected: (option) {
                             setState(() {
@@ -125,6 +127,7 @@ class _AddLeaveState extends State<AddLeave> {
                       flex: 1,
                       child: CustomDropDown<FromDateStatus>(
                         options: details == null ? [] : details.fromDateStatuses,
+                        optionLabel: "Status",
                         selected: selectedFromDateStatus,
                         onSelected: (option) {
                           setState(() {
@@ -153,6 +156,7 @@ class _AddLeaveState extends State<AddLeave> {
                       flex: 1,
                       child: CustomDropDown<ToDateStatus>(
                         options: details == null ? [] : details.toDateStatuses,
+                        optionLabel: "Status",
                         selected: selectedToDateStatus,
                         onSelected: (option) {
                           setState(() {

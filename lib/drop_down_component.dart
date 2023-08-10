@@ -6,12 +6,15 @@ class CustomDropDown<Option extends CommonIdName> extends StatelessWidget {
   List<Option> options;
   Function(Option option) onSelected;
   Option? selected;
+  String optionLabel;
   CustomDropDown(
       {super.key,
       required this.title,
       required this.options,
       required this.onSelected,
-      required this.selected});
+      required this.selected,
+      required this.optionLabel
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -44,27 +47,44 @@ class CustomDropDown<Option extends CommonIdName> extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               builder: (context) {
-                return Container(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: options.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        child: Container(
-                            padding: const EdgeInsets.all(13),
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        width: 1, color: Colors.grey))),
-                            child: Text(options[index].name)),
-                        onTap: () {
-                          onSelected(options[index]);
-                          Navigator.pop(context);
-                        },
-                      );
-                    },
-                  ),
-                );
+                return 
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.blue
+                          ),
+                          width: double.infinity,
+                          child: Text(optionLabel, style: TextStyle(color: Colors.white),),
+                        ),
+                        Flexible(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: options.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                child: Container(
+                                    padding: const EdgeInsets.all(13),
+                                    decoration: const BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                width: 1, color: Colors.grey))),
+                                    child: Text(options[index].name)),
+                                onTap: () {
+                                  onSelected(options[index]);
+                                  Navigator.pop(context);
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  
+                
               },
             );
           },
