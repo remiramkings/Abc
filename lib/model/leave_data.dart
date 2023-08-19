@@ -67,4 +67,28 @@ class LeaveData{
       toDateStatusName: map['to_date_status_name'] ?? '',
     );
   }
+
+  LeaveData copy(){
+    return LeaveData(
+      leaveRequestMasterId: leaveRequestMasterId,
+      leaveRequestTypeId: leaveRequestTypeId,
+      leaveRequestTypeName: leaveRequestTypeName,
+      fromDate: fromDate,
+      toDate: toDate,
+      differenceInDays: differenceInDays,
+      reason: reason,
+      statusId: statusId,
+      companyId: companyId,
+      comment: comment,
+      userId: userId,
+      fullName: fullName,
+      designationName: designationName,
+      leaveRequestStatusId: leaveRequestStatusId,
+      leaveRequestStatusName: leaveRequestStatusName,
+      leaveFromDateStatusId: leaveFromDateStatusId,
+      createdDate: createdDate,
+      fromDateStatusName: fromDateStatusName,
+      leaveToDateStatusId: leaveToDateStatusId,
+      toDateStatusName: toDateStatusName);
+  }
 }

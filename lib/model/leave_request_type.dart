@@ -1,3 +1,4 @@
+import 'package:local_notification_project/model/leave_data.dart';
 import 'package:local_notification_project/model/leave_detail_base.dart';
 
 class LeaveRequestType extends LeaveDetailBase{
@@ -21,6 +22,17 @@ class LeaveRequestType extends LeaveDetailBase{
       statusId: map['status_id'] ?? 0,
       leaveRequestShortCode: map['leave_request_short_code'] ?? '',
       leaveRequestColor: map['leave_request_color'] ?? ''
+    );
+  }
+
+  factory LeaveRequestType.fromLeaveData(LeaveData data){
+    return LeaveRequestType(
+      id: int.parse(data.leaveRequestTypeId),
+      name: data.leaveRequestTypeName,
+      companyId: int.parse(data.companyId),
+      statusId: 0, // int.parse(data.statusId),
+      leaveRequestShortCode: '',
+      leaveRequestColor: ''
     );
   }
 }

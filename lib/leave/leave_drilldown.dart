@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:local_notification_project/leave/add_leave.dart';
 import 'package:local_notification_project/model/leave_data.dart';
 
 class LeaveDrillDown extends StatefulWidget {
@@ -51,7 +52,13 @@ class _LeaveDrillDownState extends State<LeaveDrillDown> {
                     color: Colors.grey
                   ),)),
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => AddLeave(leaveData: widget.leaveData)
+                  ),
+                );
+              },
               child: const Icon(Icons.edit, color: Colors.blue,),
             )
           ],

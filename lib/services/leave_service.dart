@@ -4,12 +4,14 @@ import 'package:http/http.dart';
 import 'package:local_notification_project/model/from_date_status.dart';
 import 'package:local_notification_project/model/leave_data.dart';
 import 'package:local_notification_project/model/leave_details_response.dart';
+import 'package:local_notification_project/model/leave_edit_request_model.dart';
 import 'package:local_notification_project/model/leave_grid_summary.dart';
 import 'package:local_notification_project/model/leave_request_model.dart';
 import 'package:local_notification_project/model/leave_request_status.dart';
 import 'package:local_notification_project/model/leave_request_type.dart';
 import 'package:local_notification_project/model/leave_response_model.dart';
 import 'package:local_notification_project/model/to_date_status.dart';
+import 'package:local_notification_project/model/user_model.dart';
 import 'package:local_notification_project/services/base_service.dart';
 
 class LeaveService extends BaseService{
@@ -94,5 +96,40 @@ class LeaveService extends BaseService{
       toDateStatuses: toDateStatuses,
       leaveRequestStatuses: leaveRequestStatuses
     );
-  }  
+  }
+
+  Future<LeaveEditRequestModel?> updateLeave(LeaveEditRequestModel request) async{
+    Uri uri = getApiUri('crm.todomor.com','api/UpdateLeaveRequest');
+    var headers = {'Content-Type': 'application/json'};
+
+    Response response = await client.put(uri,
+      headers: headers,
+      body: jsonEncode(request.toMap())
+    );
+
+    if(!isSuccess(response)){
+      return null;
+    }
+
+    Map<String, dynamic> responseMap = getMap(response);
+    return LeaveEditRequestModel.fromMap(responseMap);
+  }
+
+// cid:6 uid=1745
+  Future<List<UserModel>> getUserDetails(int companyId, int userId) async{
+    Uri uri = getApiUri('crm.todomor.com', 'api/GetAssignedusers/$companyId/$userId/client');
+    var headers = {'Content-Type': 'application/json'};
+    Response response = await client.get(uri , headers: headers);
+
+    if(!isSuccess(response)){
+      return [];
+    }
+
+    List<dynamic> responseList =  getList(response);
+
+    return responseList
+      .map((e) => UserModel.fromMap(e as Map<String, dynamic>))
+      .toList();
+  
+  }
 }
