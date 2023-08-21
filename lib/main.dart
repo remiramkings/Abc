@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_notification_project/attendance/attendance.dart';
 import 'package:local_notification_project/call_log.dart';
 import 'package:local_notification_project/leave/leave.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home: const Leave(),
+      home: const Attendance(),
     );
   }
 }
