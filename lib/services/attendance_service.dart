@@ -10,7 +10,7 @@ class AttendanceService extends BaseService{
   }
 
   Future<AttendanceModel?> getAttendanceDetails() async{
-    Uri uri = getApiUri('crm.todomor.com', 'api/ShowDailyReport/6/2023-08/0/1745/1/21');
+    Uri uri = getApiUri('crm.todomor.com', 'api/ShowDailyReport/6/2023-08/0/1745/1/22');
     var headers = {'Content-Type': 'application/json'};
 
     Response response = await client.get(uri, headers: headers);

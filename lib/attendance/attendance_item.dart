@@ -10,14 +10,14 @@ class AttendanceItem extends StatelessWidget {
   Map<String, int> getAttendanceDuration(){
     int interval = int.parse(attendanceDetails.chechInOutDiff);
     return {
-      'hours': (interval/60).round(),
+      'hours': (interval ~/ 60).round(),
       'minutes': interval%60
     };
   }
 
   static String getFormattedTime(DateTime? dateTime){
     if(dateTime == null){
-      return 'No data avilable';
+      return '';
     }
     return timeFormat.format(dateTime);
   }
