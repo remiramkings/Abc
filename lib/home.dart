@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:local_notification_project/client.dart';
 import 'package:local_notification_project/enquiry.dart';
 import 'package:local_notification_project/notification_actions.dart';
+import 'package:local_notification_project/notification_alert.dart';
 import 'package:local_notification_project/notification_service.dart.dart';
 import 'package:local_notification_project/order.dart';
 import 'package:local_notification_project/second_screen.dart';
@@ -24,6 +25,8 @@ class _HomeState extends State<Home> {
     "abc-89796",
     "abc-44566",
   ];
+  
+  int count = 0;
   
   @override
   void initState() {
@@ -57,6 +60,8 @@ class _HomeState extends State<Home> {
         actions: [
           Row(
           children: [
+            NotificationAlert(count: count),
+            SizedBox(width: 10),
             InkWell(
               child: const Icon(Icons.notifications),
               onTap: () async {
@@ -139,7 +144,19 @@ class _HomeState extends State<Home> {
               NotificationAction.order.name,
               NotificationAction.order.index
             );
-          }, child: Text('Order'))
+          }, child: Text('Order')),
+          SizedBox(height:10),
+          ElevatedButton(onPressed: (){
+            setState(() {
+              count += 10;
+            });
+          }, child: Text('10x count')),
+          SizedBox(height:10),
+          ElevatedButton(onPressed: (){
+            setState(() {
+              count += 100;
+            });
+          }, child: Text('100x count'))
         ]),
       ),
     );
