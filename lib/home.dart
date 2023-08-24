@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
           Row(
           children: [
             NotificationAlert(count: count),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             InkWell(
               child: const Icon(Icons.notifications),
               onTap: () async {
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                 );
               },
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             InkWell(
               child: const Icon(Icons.token),
               onTap: () {
@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
         child: Column(
           
           children: [
-          SizedBox(height:10),
+          const SizedBox(height:10),
           ElevatedButton(onPressed: ()async{
             await NotificationService.getInstance().showNotificationWithPayLoad(
               "This is a Client notification",
@@ -126,8 +126,8 @@ class _HomeState extends State<Home> {
               NotificationAction.client.name,
               NotificationAction.client.index
             );
-          }, child: Text('Client')),
-          SizedBox(height:10),
+          }, child: const Text('Client')),
+          const SizedBox(height:10),
           ElevatedButton(onPressed: ()async{
             await NotificationService.getInstance().showNotificationWithPayLoad(
               "This is an Enquiry notification",
@@ -135,8 +135,8 @@ class _HomeState extends State<Home> {
               NotificationAction.enquiry.name,
               NotificationAction.enquiry.index
             );
-          }, child: Text('Enquiry')),
-          SizedBox(height:10),
+          }, child: const Text('Enquiry')),
+          const SizedBox(height:10),
           ElevatedButton(onPressed: ()async{
             await NotificationService.getInstance().showNotificationWithPayLoad(
               "This is an Order notification",
@@ -144,19 +144,19 @@ class _HomeState extends State<Home> {
               NotificationAction.order.name,
               NotificationAction.order.index
             );
-          }, child: Text('Order')),
-          SizedBox(height:10),
+          }, child: const Text('Order')),
+          const SizedBox(height:10),
           ElevatedButton(onPressed: (){
             setState(() {
               count += 10;
             });
-          }, child: Text('10x count')),
-          SizedBox(height:10),
+          }, child: const Text('10x count')),
+          const SizedBox(height:10),
           ElevatedButton(onPressed: (){
             setState(() {
               count += 100;
             });
-          }, child: Text('100x count'))
+          }, child: const Text('100x count'))
         ]),
       ),
     );

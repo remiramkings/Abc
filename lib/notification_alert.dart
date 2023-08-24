@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 
-class NotificationAlert extends StatefulWidget{
-  
+class NotificationAlert extends StatefulWidget {
   int count;
-  NotificationAlert({
-    super.key,
-    required this.count
-  });
-  
+  NotificationAlert({super.key, required this.count});
+
   @override
   State<StatefulWidget> createState() {
     return NotificationAlertState();
   }
 }
-class NotificationAlertState extends State<NotificationAlert> with TickerProviderStateMixin{
+
+class NotificationAlertState extends State<NotificationAlert>
+    with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 500),
     vsync: this,
   );
   late final Animation<double> _animation = Tween(begin: 0.0, end: -0.1)
-    .chain(CurveTween(curve: Curves.elasticIn))
-    .animate(_controller);
+      .chain(CurveTween(curve: Curves.elasticIn))
+      .animate(_controller,
+       );
 
   @override
   void didUpdateWidget(covariant NotificationAlert oldWidget) {
@@ -28,10 +27,16 @@ class NotificationAlertState extends State<NotificationAlert> with TickerProvide
     super.didUpdateWidget(oldWidget);
 
     _controller.reset();
-    _controller.forward()
-      .then((value) {
-        _controller.reverse();
-      });
+    Future.delayed(const Duration( seconds: 2),(){
+    //    _controller.forward().then((value) {
+    //   _controller.reverse();
+    // });
+    if(widget.count>0){
+       _controller.repeat(reverse: true);
+    }
+    
+    });
+   
   }
 
   @override
@@ -40,13 +45,11 @@ class NotificationAlertState extends State<NotificationAlert> with TickerProvide
       children: [
         RotationTransition(
           turns: _animation,
-          child: Padding(
+          child: const Padding(
             padding: EdgeInsets.all(8.0),
             child: Icon(Icons.notifications),
-            
           ),
         ),
-        
         Visibility(
           visible: canShowBubble,
           child: Positioned(
@@ -61,7 +64,8 @@ class NotificationAlertState extends State<NotificationAlert> with TickerProvide
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Text(getCount(), style: TextStyle(color: Colors.white, fontSize: 12)),
+                child: Text(getCount(),
+                    style: const TextStyle(color: Colors.white, fontSize: 12)),
               ),
             ),
           ),
@@ -71,13 +75,13 @@ class NotificationAlertState extends State<NotificationAlert> with TickerProvide
   }
 
   get canShowBubble {
-    return widget.count > 0;
+    return false; //widget.count > 0;
   }
 
-  String getCount(){
-    if(widget.count<1000){
+  String getCount() {
+    if (widget.count < 1000) {
       return '${widget.count}';
     }
-    return '${(widget.count/1000).floor()}k';
+    return '${(widget.count / 1000).floor()}k';
   }
 }
